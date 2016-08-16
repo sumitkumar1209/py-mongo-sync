@@ -34,14 +34,21 @@ Source should be a member of replica set and destination could be a mongod/mongo
 
 ## Usage 
 
+To sync only one db provide --sdb parameter
+To sync only one collection of a db provide --sdb and --scoll parameter
+
+To change name of corresponding db to sync provide --sdb and --ddb parameter
+To change name of corresponding collection to sync provide --sdb and --ddb as same name and --scoll and --dcoll as different parameter
+
 ```bash
 # python main.py --help
 
 usage: main.py [-h] --from [FROM] [--src-username [SRC_USERNAME]]
                [--src-password [SRC_PASSWORD]] [--src-engine [SRC_ENGINE]]
                --to [TO] [--dst-username [DST_USERNAME]]
-               [--dst-password [DST_PASSWORD]] [--db [DB]] [--coll [COLL]]
-               [--query [QUERY]] [--start-optime [START_OPTIME]]
+               [--dst-password [DST_PASSWORD]] [--sdb [SDB]] [--scoll [SCOLL]]
+               [--ddb [DDB]] [--dcoll [DCOLL]] [--query [QUERY]]
+               [--start-optime [START_OPTIME]]
                [--write-concern [WRITE_CONCERN]] [--log [LOG]]
 
 Sync data from a replica-set to another mongod/replica-set/sharded-cluster.
@@ -61,8 +68,10 @@ optional arguments:
                         dst username
   --dst-password [DST_PASSWORD]
                         dst password
-  --db [DB]             the database to sync
-  --coll [COLL]         the collection to sync
+  --sdb [SDB]           source database to sync
+  --scoll [SCOLL]       source collection to sync
+  --ddb [DDB]           destination database to sync
+  --dcoll [DCOLL]       destination collection to sync
   --query [QUERY]       json query
   --start-optime [START_OPTIME]
                         start optime, a timestamp value in second for MongoDB
@@ -70,14 +79,6 @@ optional arguments:
   --write-concern [WRITE_CONCERN]
                         write concern, default 1
   --log [LOG]           log file path
-
-
-usage: main.py [-h] --from [FROM] [--src-username [SRC_USERNAME]]
-               [--src-password [SRC_PASSWORD]] --to [TO]
-               [--dst-username [DST_USERNAME]] [--dst-password [DST_PASSWORD]]
-               [--db [DB]] [--coll [COLL]] [--query [QUERY]]
-               [--start-optime [START_OPTIME]]
-               [--write-concern [WRITE_CONCERN]] [--log [LOG]]
 
 ```
 

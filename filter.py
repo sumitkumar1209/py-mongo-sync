@@ -15,6 +15,7 @@ class Filter(object):
 class DatabaseFilter(Filter):
     """ Database filter.
     """
+
     def __init__(self):
         self._target_dbs = []
 
@@ -42,6 +43,7 @@ class DatabaseFilter(Filter):
 class CollectionFilter(Filter):
     """ Collection filter.
     """
+
     def __init__(self):
         self._target_colls = []
         self._db_filter = DatabaseFilter()
@@ -68,7 +70,7 @@ class CollectionFilter(Filter):
     def valid_oplog(self, oplog):
         """ Validate oplog.
         """
-        op = oplog['op'] # 'n' or 'i' or 'u' or 'c' or 'd'
+        op = oplog['op']  # 'n' or 'i' or 'u' or 'c' or 'd'
         ns = oplog['ns']
         db = oplog['ns'].split('.', 1)[0]
         if self._db_filter.valid_database(db):

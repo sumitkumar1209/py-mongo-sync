@@ -1,6 +1,6 @@
-import sys
 import argparse
-import pymongo
+import sys
+
 import mongo_helper
 
 # global variables
@@ -10,6 +10,7 @@ g_src_password = ''
 g_dst = ''
 g_dst_username = ''
 g_dst_password = ''
+
 
 def parse_args():
     """ Parse arguments.
@@ -38,6 +39,7 @@ def parse_args():
     if args['dst_password'] != None:
         g_dst_password = args['dst_password']
 
+
 def get_standard_index_name(index_items):
     """ User can specify any name for a index.
     We should generate a standard name for a index and then compare them.
@@ -52,6 +54,7 @@ def get_standard_index_name(index_items):
             print 'invalid direction for', index_items['key']
             sys.exit(1)
     return '_'.join(index_keys)
+
 
 def main():
     global g_src, g_src_username, g_src_password, g_dst, g_dst_username, g_dst_password
@@ -70,19 +73,19 @@ def main():
     src_host = g_src.split(':')[0]
     src_port = int(g_src.split(':')[1])
     src_mc = mongo_helper.mongo_connect(
-            src_host,
-            src_port,
-            username=g_src_username,
-            password=g_src_password)
+        src_host,
+        src_port,
+        username=g_src_username,
+        password=g_src_password)
 
     dst_host = g_dst.split(':')[0]
     dst_port = int(g_dst.split(':')[1])
     dst_mc = mongo_helper.mongo_connect(
-            dst_host,
-            dst_port,
-            username=g_dst_username,
-            password=g_dst_password)
- 
+        dst_host,
+        dst_port,
+        username=g_dst_username,
+        password=g_dst_password)
+
     ignore_dbs = ['admin', 'local']
     ignore_colls = ['system.users', 'system.profile']
 
@@ -108,7 +111,8 @@ def main():
                     else:
                         res = 'ERR'
                         data_pass = False
-                    print '%s%s%s%s' % (res.ljust(16), (dbname + '.' + collname).ljust(48), str(src_coll_cnt).rjust(16), str(dst_coll_cnt).rjust(16))
+                    print '%s%s%s%s' % (res.ljust(16), (dbname + '.' + collname).ljust(48), str(src_coll_cnt).rjust(16),
+                                        str(dst_coll_cnt).rjust(16))
     print '-' * 96
     if data_pass:
         print 'data pass'
@@ -146,6 +150,7 @@ def main():
         print 'index pass'
     else:
         print 'index not pass'
+
 
 if __name__ == '__main__':
     main()
